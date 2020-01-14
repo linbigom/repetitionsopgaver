@@ -1,1 +1,38 @@
+int a = 1;   //input, skal skrives manuelt da processing ikke har en inputfunktion
+int x = 2;
+int b = 3;
+int y = 5;
+
+int testX1; int testY1;  //initierer to (x,y) koordinater til linjen der,
+int testX2; int testY2;  //skal gå fra venstre side af skærmen til højre 
+
+void setup() {
+  size(1000, 1000);
+  background(255, 110, 148);
+
+  int testX1 = 0-(width/2);            //da koordinatsystemets origo senere rykket til (500,500) skal linjens x starte i origo minus 500
+  int testY1 = (a * testX1 + b)*-1;    
+  int testX2 = width;                  //der er principielt ikke brug for at linjen går så langt, man man kan ikke se det så det er ligemeget
+  int testY2 = (a * testX2 + b)*-1;
+
+  line(width/2, 0, width/2, height); 
+  line(0, height/2, width, height/2);    //tegner rigtigt koordinatsystem
+
+  pushMatrix();
+    translate(width/2, height/2);         //rykker linjen og punktet's origo til midten af skærmen
+    scale(4);                             //skalerer linjen så vi rent faktisk kan se hvad der sker med punktet og linjen med de små numre
+    stroke(254);
+    line(testX1, testY1, testX2, testY2); //linjen tegnes ud fra de to (x,y)-koordinater
+    circle(x, y*-1, 1);                   //punktet tegnes
+  popMatrix();
+
+  determineOutput();                      //skriver om punktet ligger over, under, eller på linjen. Se nedenfor for funktion, bare et if/elseif-statement
+}
+
+void determineOutput() {
+  textSize(100); 
+  if (y > a*x+b) {text("OVER", 550, 250);} 
+  else if (y < a*x+b) {text("UNDER", 550, 250);} 
+  else {text("YOU HIT!", 550, 250);}
+}
 
