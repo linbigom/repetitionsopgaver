@@ -1,9 +1,9 @@
-from math import sqrt, acos, sin
-from itertools import combinations 
+from math import sqrt, acos, sin     #math skal bruges til trigonometrien
+from itertools import combinations   #skal bruges til at finde alle kombinationer af 4 koordinater
 
-N = int(input())
-
-coordinatList = []
+N = int(input())                                 #input der styrer hvor mange punkter man vil have
+                                                 #næste for loop looper derfor N gange, således man kan skrive det rigtige antal koordinater ind
+coordinatList = []                               #tilføjer alle koordinaterne således man får en nested liste med koordinater
 for n in range(N):
     temp = list(map(int,input().split()))
     tempList = []
@@ -11,9 +11,7 @@ for n in range(N):
     tempList.append(temp[1])
     coordinatList.append(tempList)
 
-print(coordinatList)
-print(coordinatList[0][0])
-
+#I et forloop tilføjes x- og bagefter y-koordinater fra alle koordinatsættene, således kan de sammenlignes i listerne fistCoordinates og secondCoordinates
 fistCoordinates = []
 secondCoordinates = []
 for i in coordinatList:
@@ -25,25 +23,23 @@ indexForLeft = fistCoordinates.index(min(fistCoordinates))
 indexForUp = secondCoordinates.index(max(secondCoordinates))
 indexForDown = secondCoordinates.index(min(secondCoordinates))
 
-reducedCoordinatlist = []
-reducedCoordinatlist.append(coordinatList[indexForRight])
-reducedCoordinatlist.append(coordinatList[indexForLeft])
+reducedCoordinatlist = []                                       #her laves listen med kun fire (måske 3) koordinatsæt
+reducedCoordinatlist.append(coordinatList[indexForRight])       #det udnyttes at x- og y-koordinater er blevet sat ind i rækkefølge
+reducedCoordinatlist.append(coordinatList[indexForLeft])        #index for det største/mindste vil derfor være det samme som i coordinatList
 reducedCoordinatlist.append(coordinatList[indexForUp])
 reducedCoordinatlist.append(coordinatList[indexForDown])
 
-print(reducedCoordinatlist)
-
-ALL_COMBOS_OF_POINTS = itertools.combinations(reducedCoordinatlist,3) 
+ALL_COMBOS_OF_POINTS = itertools.combinations(reducedCoordinatlist,3) #her findes alle kombinationer af de fire koordinater, (med længden 3) således der kan regnes areal med alle kombier
 
 listOfAreas = []
 for kordinat in ALL_COMBOS_OF_POINTS:
     area = determineTri(kordinat)
     listOfAreas.append(area)
 
-print(max(listOfAreas))
+print(max(listOfAreas))      #det største areal printes
 
-def determineTri(kordinat):
-    A = kordinat[0]
+def determineTri(kordinat):  #funktion der tager imod et koordinatsæt med tre koordinater i en nested liste
+    A = kordinat[0]          #definerer A, B, og C, som de individuelle koordinater
     B = kordinat[1]
     C = kordinat[2]
 
@@ -51,8 +47,10 @@ def determineTri(kordinat):
     l_a = sqrt((C[0]-B[0])**2+(C[1]-B[1])**2)
     l_b = sqrt((C[0]-A[0])**2+(C[1]-A[1])**2)
     l_c = sqrt((B[0]-A[0])**2)((B[1]-A[1])**2)
+    
     #Vinklen A fundet ved Arccos((b^2+c^2-a^2)/2*b*c)
     v_A = acos(((l_b**2)+(l_c**2)-(l_a**2))/(2*l_b*l_c))
+    
     #Arealet fundet ved sin(A)*b*c*1/2
     Area = (sin(v_A)*l_b*l_c)/2
     return Area
