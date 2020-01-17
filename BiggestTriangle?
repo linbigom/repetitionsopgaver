@@ -1,3 +1,11 @@
+
+
+
+
+
+
+################################################# DETTE ER SKREVET I PYTHON ############################################################
+
 from math import sqrt, acos, sin     #math skal bruges til trigonometrien
 from itertools import combinations   #skal bruges til at finde alle kombinationer af 4 koordinater
 
