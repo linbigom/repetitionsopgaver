@@ -1,3 +1,9 @@
+
+
+////////////////////////////////////////////// DETTE ER SKREVET I PROCESSING /////////////////////////////////////////////////
+
+
+
 int a = 1;   //input, skal skrives manuelt da processing ikke har en inputfunktion
 int x = 2;
 int b = 3;
